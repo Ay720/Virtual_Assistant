@@ -39,7 +39,7 @@ const Customize2 = () => {
       // update context user
       setUserData(result.data);
  
-      navigate("/Home"); 
+      navigate("/"); 
 
     } catch (error) {
       console.error(

@@ -13,7 +13,7 @@ const App = () => {
   return (
     <Routes>
       <Route
-        path="/Home"
+        path="/"
         element={
           userData
             ? <Home />
@@ -28,7 +28,7 @@ const App = () => {
 
       <Route
         path="/signin"
-        element={!userData ? <Signin /> : <Navigate to="/Home" />}
+        element={!userData ? <Signin /> : <Navigate to="/" />}
       />
   <Route path="/customize" element={<Customize />} />
   <Route path="/customize2" element={<Customize2/>} />

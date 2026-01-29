@@ -22,32 +22,38 @@ const Signin = () => {
   }
 }, [userData]);
 
-const handleSignin = async(e) =>
-{ e.preventDefault();
+
+const handleSignin = async (e) => {
+  e.preventDefault();
   setLoading(true);
   setErr("");
-    try 
-    {
-        setLoading(false);
-        let result = await axios.post(`${serverUrl}/api/auth/login`,
-            {email,password},{withCredentials:true}
-        )
-        setUserData(result.data);
-        console.log(userData);
-        
-    } 
-    catch (error) 
-    {
-      
-        console.error("Error during signin:", error);
-        setLoading(false);
-        setUserData(null);
-        setErr(error.response.data.message);
+
+  try {
+    const result = await axios.post(
+      `${serverUrl}/api/auth/login`,
+      { email, password },
+      { withCredentials: true }
+    );
+
+    setUserData(result.data);
+  } catch (error) {
+    console.error("Error during signin:", error);
+
+    setUserData(null);
+
+    if (error.response) {
+      setErr(error.response.data.message || "Login failed");
+    } else if (error.request) {
+      setErr("Server not running. Please start backend.");
+    } else {
+      setErr("Something went wrong");
     }
-    finally {
-    setLoading(false); // ✅ hamesha last me
+  } finally {
+    setLoading(false);
   }
-}
+};
+
+
 
  return (
   <div
