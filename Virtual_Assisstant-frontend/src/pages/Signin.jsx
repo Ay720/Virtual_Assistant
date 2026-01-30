@@ -35,7 +35,10 @@ const handleSignin = async (e) => {
       { withCredentials: true }
     );
 
+    localStorage.setItem("userData", JSON.stringify(result.data));
     setUserData(result.data);
+    console.log(result.data)
+navigate("/home");
   } catch (error) {
     console.error("Error during signin:", error);
 

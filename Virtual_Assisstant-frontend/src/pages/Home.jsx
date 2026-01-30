@@ -6,19 +6,19 @@ import axios from "axios";
 const Home = () => {
   const navigate = useNavigate();
 
-  // ✅ ALWAYS get context first
+ 
   const { serverUrl, userData, setUserData, getGeminiResponse } =
     useContext(UserDataContext);
 
-  // ✅ Redirect if not logged in
+
   useEffect(() => {
     if (!userData) navigate("/signin");
   }, [userData, navigate]);
 
-  // ✅ Stop rendering until data arrives (fixes reload issue)
+ 
   if (!userData) return null;
 
-  // 🎤 Speak function
+
   const speak = (text) => {
   const core = document.querySelector(".cinematic-core");
   core?.classList.add("speaking");
@@ -30,7 +30,15 @@ const Home = () => {
   window.speechSynthesis.speak(utter);
 };
 
+ useEffect(() => {
+    if (!userData) {
+      const storedUser = localStorage.getItem("userData");
 
+      if (storedUser) {
+        setUserData(JSON.parse(storedUser));
+      }
+    }
+  }, []);
   // 👋 Welcome voice when Home loads
   useEffect(() => {
     if (userData?.name) {

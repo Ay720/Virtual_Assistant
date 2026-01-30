@@ -36,7 +36,8 @@ export const updateAssisstant = async (req, res) => {
     let assistantImage;
 
     if (req.file) {
-      assistantImage = await uploadCloudinary(req.file.path);
+      const uploadImage = await uploadCloudinary(req.file.path);
+      assistantImage = uploadImage.secure_url
     } else if (imageUrl) {
       assistantImage = imageUrl;
     }
